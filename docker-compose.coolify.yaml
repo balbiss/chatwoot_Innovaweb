@@ -2,7 +2,7 @@ version: '3'
 
 services:
   rails:
-    image: 'ghcr.io/balbiss/chatwoot_innovaweb:latest'
+    image: 'ghcr.io/inoovawebb/chatwoot_innovaweb:latest'
     pull_policy: always
     volumes:
       - 'storage:/app/storage'
@@ -56,7 +56,7 @@ services:
       retries: 10
 
   sidekiq:
-    image: 'ghcr.io/balbiss/chatwoot_innovaweb:latest'
+    image: 'ghcr.io/inoovawebb/chatwoot_innovaweb:latest'
     pull_policy: always
     volumes:
       - 'storage:/app/storage'
