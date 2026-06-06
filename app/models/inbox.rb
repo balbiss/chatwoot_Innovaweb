@@ -182,7 +182,8 @@ class Inbox < ApplicationRecord
     {
       id: id,
       name: name,
-      ai_prompt: ai_prompt
+      ai_prompt: ai_prompt,
+      attendants_queue: attendants_queue
     }
   end
 
