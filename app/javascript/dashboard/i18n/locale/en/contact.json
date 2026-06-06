@@ -340,7 +340,8 @@
           "DESCRIPTION": "Quickly export a csv file with comprehensive details of your contacts",
           "CONFIRM": "Export",
           "SUCCESS_MESSAGE": "Export is in progress. You will be notified on email when the export file is ready to download.",
-          "ERROR_MESSAGE": "There was an error, please try again"
+          "ERROR_MESSAGE": "There was an error, please try again",
+          "EXPORT_ONLY_NAME_PHONE": "Export only Name and Phone (Ideal for blasts)"
         },
         "SORT_BY": {
           "LABEL": "Sort by",

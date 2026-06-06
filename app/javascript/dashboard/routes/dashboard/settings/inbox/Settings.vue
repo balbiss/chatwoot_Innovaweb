@@ -109,6 +109,7 @@ export default {
       widgetBubbleType: 'standard',
       widgetBubbleLauncherTitle: '',
       showConvertGate: false,
+      aiPrompt: '',
     };
   },
   computed: {
@@ -440,6 +441,7 @@ export default {
       this.selectedPortalSlug = this.inbox.help_center
         ? this.inbox.help_center.slug
         : '';
+      this.aiPrompt = this.inbox.ai_prompt || '';
 
       const savedBubbleSettings = LocalStorage.get(
         this.widgetBuilderStorageKey
@@ -553,6 +555,7 @@ export default {
           lock_to_single_conversation: this.locktoSingleConversation,
           sender_name_type: this.senderNameType,
           business_name: this.businessName || null,
+          ai_prompt: this.aiPrompt,
           channel: {
             widget_color: this.inbox.widget_color,
             website_url: this.channelWebsiteUrl,
@@ -914,6 +917,31 @@ export default {
                 />
               </template>
             </SettingsFieldSection>
+
+            <SettingsAccordion
+              :title="$t('INBOX_MGMT.SETTINGS_POPUP.AI_SETTINGS_TITLE')"
+              class="mt-6"
+            >
+              <SettingsFieldSection
+                :label="$t('INBOX_MGMT.SETTINGS_POPUP.AI_PROMPT_LABEL')"
+                :help-text="$t('INBOX_MGMT.SETTINGS_POPUP.AI_PROMPT_SUB_TEXT')"
+                class="[&>div]:!items-start [&>div>label]:mt-1"
+              >
+                <TextArea
+                  v-model="aiPrompt"
+                  :placeholder="$t('INBOX_MGMT.SETTINGS_POPUP.AI_PROMPT_PLACEHOLDER')"
+                  auto-height
+                  resize
+                  class="w-full"
+                />
+              </SettingsFieldSection>
+              <div class="flex justify-end mx-6 mb-4">
+                <NextButton
+                  :label="$t('INBOX_MGMT.EDIT.SENDER_NAME_SECTION.BUSINESS_NAME.SAVE_BUTTON_TEXT')"
+                  @click="updateInbox"
+                />
+              </div>
+            </SettingsAccordion>
 
             <SettingsAccordion
               v-if="isAWebWidgetInbox"

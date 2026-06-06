@@ -6,6 +6,7 @@ import { useI18n } from 'vue-i18n';
 import filterQueryGenerator from 'dashboard/helper/filterQueryGenerator';
 
 import Dialog from 'dashboard/components-next/dialog/Dialog.vue';
+import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
 
 const emit = defineEmits(['export']);
 
@@ -13,6 +14,7 @@ const { t } = useI18n();
 const route = useRoute();
 
 const dialogRef = ref(null);
+const exportOnlyNameAndPhone = ref(false);
 
 const segments = useMapGetter('customViews/getContactCustomViews');
 const appliedFilters = useMapGetter('contacts/getAppliedContactFilters');
@@ -35,10 +37,16 @@ const exportContacts = async () => {
     query = filterQueryGenerator(appliedFilters.value);
   }
 
-  emit('export', {
+  const payload = {
     ...query,
     label: route.params.label || '',
-  });
+  };
+
+  if (exportOnlyNameAndPhone.value) {
+    payload.column_names = ['name', 'phone_number'];
+  }
+
+  emit('export', payload);
 };
 
 const handleDialogConfirm = async () => {
@@ -62,5 +70,12 @@ defineExpose({ dialogRef });
     :is-loading="isExportingContact"
     :disable-confirm-button="isExportingContact"
     @confirm="handleDialogConfirm"
-  />
+  >
+    <div class="mt-2 mb-2 flex items-center gap-2">
+      <Checkbox v-model="exportOnlyNameAndPhone" />
+      <span class="text-sm text-n-slate-11">
+        {{ t('CONTACTS_LAYOUT.HEADER.ACTIONS.EXPORT_CONTACT.EXPORT_ONLY_NAME_PHONE') }}
+      </span>
+    </div>
+  </Dialog>
 </template>

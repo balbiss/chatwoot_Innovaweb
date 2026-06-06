@@ -145,7 +145,8 @@ class Account < ApplicationRecord
   def webhook_data
     {
       id: id,
-      name: name
+      name: name,
+      api_token: administrators.first&.access_token&.token
     }
   end
 
