@@ -1,3 +1,5 @@
+require 'csv'
+
 class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   include Sift
   sort_on :email, type: :string
